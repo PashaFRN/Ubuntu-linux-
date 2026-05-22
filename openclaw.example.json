@@ -1,0 +1,79 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "C:\\Users\\YOUR_USER\\.openclaw\\workspace",
+      "model": {
+        "primary": "google/gemini-1.5-flash"
+      },
+      "models": {
+        "google/gemini-1.5-flash": {}
+      }
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "REPLACE_WITH_LONG_RANDOM_TOKEN"
+    },
+    "port": 18889,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "controlUi": {
+      "allowInsecureAuth": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send",
+        "sms.search"
+      ]
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "coding"
+  },
+  "plugins": {
+    "entries": {
+      "google": {
+        "enabled": true
+      },
+      "telegram": {
+        "enabled": true
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "REPLACE_WITH_TELEGRAM_BOT_TOKEN"
+    }
+  },
+  "commands": {
+    "ownerAllowFrom": [
+      "telegram:REPLACE_WITH_OWNER_ID"
+    ],
+    "allowFrom": {
+      "telegram": []
+    }
+  }
+}

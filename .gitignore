@@ -1,0 +1,9 @@
+*
+!.gitignore
+!.env.example
+!README.md
+!openclaw.example.json
+!update_config.py
+!test_api.py
+!canvas/
+!canvas/index.html
