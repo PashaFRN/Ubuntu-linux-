@@ -1,51 +1,89 @@
-# OpenClaw Workspace Template
+# OpenClaw Public Template
 
-Safe OpenClaw workspace template for GitHub. This repo keeps the useful parts of a local setup while excluding live tokens, session data, private keys, logs, and runtime databases.
+Это публичная и безопасно очищенная версия локальной среды OpenClaw.
 
-## Included
+Смысл проекта был не в том, чтобы вывалить в GitHub сырой рабочий каталог, а в том, чтобы собрать из него аккуратный публичный шаблон:
 
-- `workspace/` - base agent persona and memory files
-- `canvas/index.html` - polished local UI action bridge demo
-- `openclaw.example.json` - public config template without secrets
-- `update_config.py` - updates local `openclaw.json` from environment variables
-- `test_api.py` - quick Gemini API smoke test
+- убрать приватные runtime-данные
+- вырезать токены, ключи и machine-specific состояние
+- оставить только то, что можно спокойно показывать
+- сохранить demo-часть и вспомогательные скрипты для локальной настройки
 
-## Intentionally Excluded From Git
+## Что было сделано
 
-- live `openclaw.json`
-- tokens, keys, and pairing data
-- device identity and private keys
-- sqlite databases, sessions, logs, and local backup files
+Этот репозиторий был подготовлен как публичная версия локального OpenClaw-окружения.
 
-These are already covered by `.gitignore`.
+Основные работы:
 
-## Quick Start
+- настроена безопасная модель публикации через строгий `.gitignore`
+- из репозитория исключены живые токены, bot credentials, сессии, device identity, логи и локальные базы
+- добавлен `openclaw.example.json` как очищенный шаблон конфигурации
+- вспомогательные Python-скрипты переписаны так, чтобы они работали через переменные окружения, а не через вшитые секреты
+- подготовлена более аккуратная demo-страница `canvas/index.html` для тестирования OpenClaw action bridge
+- репозиторий приведён в вид, пригодный для публичного показа и повторного использования как шаблон
 
-1. Copy `openclaw.example.json` to `openclaw.json`.
-2. Fill in your tokens and identifiers locally.
-3. Copy `.env.example` to `.env`, or export the variables manually.
-4. Run `python update_config.py` if you want to patch your local config from env vars.
-5. Run `python test_api.py` to verify Gemini API access.
+## Какие технологии использовались
 
-## Environment Variables
+- `OpenClaw` как локальная агентная и gateway-среда
+- `JSON` для конфигурации OpenClaw
+- `HTML`, `CSS`, `JavaScript` для локальной demo-страницы
+- `Python` для helper-скриптов и автоматизации конфигурации
+- `requests` для прямой проверки Gemini API
+- `Git` и `GitHub` для версионирования и публикации
+- `Google Gemini API` как пример модельной интеграции
 
-- `GEMINI_API_KEY` - required for `update_config.py` and `test_api.py`
-- `GEMINI_MODEL` - optional, defaults to `google/gemini-2.5-flash` in the config updater and `gemini-2.5-flash` in the API test
-- `OPENCLAW_CONFIG_PATH` - path to the local `openclaw.json`
+## Структура репозитория
 
-## Publishing Model
+- `canvas/index.html` - локальная demo-страница для проверки action bridge
+- `openclaw.example.json` - безопасный шаблон конфигурации
+- `update_config.py` - обновляет локальный конфиг значениями из переменных окружения
+- `test_api.py` - делает минимальную проверку доступа к Gemini API
+- `.env.example` - пример переменных окружения
+- `.gitignore` - жёсткие правила безопасной публикации
 
-This repository works best as a template plus a personal local workspace:
+## Как это использовать
 
-- public: templates, docs, canvas, safe helper scripts
-- local only: real tokens, device identity, and runtime state
+Репозиторий содержит только публичную часть настройки, без приватного runtime-состояния.
 
-## Before You Push
+Обычный сценарий:
 
-Check that:
+1. Скопировать `openclaw.example.json` в `openclaw.json`
+2. Подставить локально свои токены и идентификаторы
+3. Задать `GEMINI_API_KEY`
+4. При необходимости запустить `update_config.py`, чтобы проставить значения из env
+5. Запустить `test_api.py` для проверки доступа к API
+6. Открыть `canvas/index.html` в нужной OpenClaw-среде для проверки bridge-действий
 
-- `git status` does not show `openclaw.json`, `credentials/`, `identity/device.json`, `logs/`, or `tasks/*.sqlite`
-- there are no hard-coded API keys or bot tokens in tracked files
-- there are no local paths, private chat IDs, or session dumps in new files
+## Модель безопасности
 
-If you want to publish a reusable OpenClaw starter, this shape is already much safer than pushing a raw `.openclaw` dump.
+В этот репозиторий специально **не** входят:
+
+- живой `openclaw.json`
+- токены и bot credentials
+- device identity
+- сессии и auth state
+- логи и локальная runtime-история
+- sqlite-базы задач
+- приватная память workspace
+
+В этом и смысл проекта: в GitHub лежит публичный шаблон, а приватная рабочая среда остаётся локально.
+
+## Для чего это может быть полезно
+
+Этот репозиторий подойдёт, если нужен:
+
+- стартовый шаблон для собственной OpenClaw-настройки
+- публичный пример аккуратно очищенного локального agent workspace
+- небольшой browser-based UI для тестирования action bridge
+- простой набор Python-скриптов для конфигурации и API-проверок
+
+## Важно
+
+Это не полноценное production-приложение с backend, frontend build pipeline и системой деплоя.
+
+Это лёгкий инфраструктурный/template-репозиторий, собранный вокруг:
+
+- локальной агентной конфигурации
+- безопасной публикации
+- утилит для проверки
+- аккуратной demo-поверхности
